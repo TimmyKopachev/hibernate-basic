@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="set-unique-name-1-" author="dzmitry.kapachou">
+        <sql>
+            insert into bunch(id, name) values (-77, 'group 1');
+            insert into bunch(id, name) values (-78, 'group 2');
+            insert into bunch(id, name) values (-79, 'group 3');
+
+            insert into student(id, first_name, last_name, email, bunch_id) values (-42, 'dzmitry', 'kapachou', 'dka@email.com', -77);
+            insert into student(id, first_name, last_name, email, bunch_id) values (-43, 'viktor', 'kapachou', 'vk@yandex.com', -78);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -10,7 +10,8 @@ import java.util.Collection;
 @Repository
 public interface AttenderRepository extends BaseRepository<Attender> {
 
-/*    @Override
+    @Override
     @EntityGraph(value = "graph.attender.tasks", type = EntityGraph.EntityGraphType.LOAD)
-    Collection<Attender> findAll();*/
+    Collection<Attender> findAll();
+
 }
