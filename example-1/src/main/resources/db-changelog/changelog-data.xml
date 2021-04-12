@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="set-unique-name-1" author="dzmitry.kapachou">
+        <sql>
+            insert into training(id, name, description, status) values (-301, 'java-core', 'java for beginners', 'IN_PROGRESS');
+            insert into training(id, name, description, status) values (-302, 'java advanced', 'java for advanced', 'PENDING_START');
+
+            insert into session(id, topic, training_id) values (-14, 'spring boot core', -301);
+            insert into session(id, topic, training_id) values (-15, 'spring mvc', -301);
+            insert into session(id, topic, training_id) values (-16, 'spring cloud', -302);
+            insert into session(id, topic, training_id) values (-17, 'saga transaction', -302);
+            insert into session(id, topic, training_id) values (-18, 'spring security', -302);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
