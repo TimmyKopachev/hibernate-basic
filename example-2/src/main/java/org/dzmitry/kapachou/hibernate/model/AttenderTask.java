@@ -13,6 +13,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.Table;
 
 @Data
@@ -20,6 +22,15 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @javax.persistence.Entity
 @Table(name = "attender_task")
+
+@NamedEntityGraph(
+        name = "graph.attender_task",
+        attributeNodes = {
+                @NamedAttributeNode(value = "attender"),
+                @NamedAttributeNode(value = "task"),
+        }
+
+)
 public class AttenderTask {
 
     @EmbeddedId

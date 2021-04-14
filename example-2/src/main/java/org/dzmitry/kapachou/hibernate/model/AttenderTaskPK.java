@@ -19,7 +19,7 @@ import java.io.Serializable;
 public class AttenderTaskPK implements Serializable {
 
     @Column(name = "attender_id")
-    private String attenderId;
+    private Long attenderId;
 
     @Column(name = "task_id")
     private Long taskId;
