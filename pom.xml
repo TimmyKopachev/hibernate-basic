@@ -22,7 +22,6 @@
         <module>example-1</module>
         <module>example-2</module>
         <module>example-3</module>
-        <module>example-4</module>
     </modules>
 
     <properties>
