@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="set-unique-name-1-" author="dzmitry.kapachou">
+        <sql>
+            insert into unit(id, name, parent_id) values (1, 'Web', NULL);
+            insert into unit(id, name, parent_id) values (2, 'Development', 1);
+            insert into unit(id, name, parent_id) values (3, 'Analytic', 1);
+            insert into unit(id, name, parent_id) values (4, 'Design', 1);
+
+            insert into unit(id, name, parent_id) values (5, 'Accounting', NULL);
+            insert into unit(id, name, parent_id) values (6, 'Revision', 5);
+            insert into unit(id, name, parent_id) values (7, 'Backend Development', 2);
+            insert into unit(id, name, parent_id) values (8, 'Frontend Development', 2);
+            insert into unit(id, name, parent_id) values (9, 'Java', 7);
+            insert into unit(id, name, parent_id) values (10, 'Angular', 8);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
