@@ -1,12 +1,5 @@
 package org.dzmitry.kapachou.hibernate.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.EnumType;
@@ -16,6 +9,10 @@ import javax.persistence.MapsId;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -31,6 +28,8 @@ import javax.persistence.Table;
         }
 
 )
+
+@ToString(of = {"status", "attender", "task"})
 public class AttenderTask {
 
     @EmbeddedId
@@ -40,7 +39,7 @@ public class AttenderTask {
     private Status status;
 
     //ignore json recursive output
-    @JsonIgnore
+    //@JsonIgnore
     /////////////
     @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("attenderId")

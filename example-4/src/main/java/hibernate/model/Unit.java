@@ -1,5 +1,6 @@
 package hibernate.model;
 
+import java.util.Iterator;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,10 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import org.dzmitry.kapachou.hibernate.model.IdEntity;
 
-@ToString(exclude = {"parent", "units"})
 @EqualsAndHashCode(callSuper = true, exclude = {"parent", "units"})
 @Data
 @Entity
@@ -28,4 +27,24 @@ public class Unit extends IdEntity {
 
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<Unit> units;
+
+  public String toString() {
+    StringBuilder buffer = new StringBuilder(50);
+    return print(buffer, "", "");
+  }
+
+  private String print(StringBuilder buffer, String prefix, String childrenPrefix) {
+    buffer.append(prefix);
+    buffer.append(name);
+    buffer.append('\n');
+    for (Iterator<Unit> it = units.iterator(); it.hasNext(); ) {
+      Unit next = it.next();
+      if (it.hasNext()) {
+        next.print(buffer, childrenPrefix + "├── ", childrenPrefix + "│   ");
+      } else {
+        next.print(buffer, childrenPrefix + "└── ", childrenPrefix + "    ");
+      }
+    }
+    return buffer.toString();
+  }
 }

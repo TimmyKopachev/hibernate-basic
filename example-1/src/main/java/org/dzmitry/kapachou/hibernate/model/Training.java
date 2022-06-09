@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Collections;
 import java.util.List;
+import lombok.ToString;
 
 
 @Getter
@@ -28,6 +29,7 @@ import java.util.List;
         name = "graph.training.sessions",
         attributeNodes = @NamedAttributeNode(value = "sessions")
 )
+@ToString
 public class Training extends IdEntity {
 
     private String name;

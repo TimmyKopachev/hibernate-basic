@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import java.util.List;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -20,6 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table
 @Entity
+@ToString
 public class Bunch extends IdEntity {
 
     private String name;

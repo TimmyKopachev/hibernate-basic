@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Table
 @Entity
+@ToString(of = "topic")
 public class Session extends IdEntity {
 
     private String topic;

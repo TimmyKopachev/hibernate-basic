@@ -1,17 +1,16 @@
 package org.dzmitry.kapachou.hibernate.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
@@ -19,12 +18,12 @@ import java.util.Set;
 @NoArgsConstructor
 @Table
 @Entity
+@ToString(of = "description")
 public class Task extends IdEntity {
 
     private String description;
 
     //ignore json recursive output
-    @JsonIgnore
     /////////////
     @OneToMany(mappedBy = "task", fetch = FetchType.EAGER)
     Set<AttenderTask> tasks;

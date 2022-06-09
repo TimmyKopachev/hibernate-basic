@@ -20,7 +20,7 @@ public class ApplicationRunner implements org.springframework.boot.ApplicationRu
   }
 
   @Override
-  public void run(ApplicationArguments args) throws Exception {
+  public void run(ApplicationArguments args) {
     System.out.println("-------RESULT:-------");
     unitRepository.findAll().forEach(System.out::println);
     System.out.println("--------------");
