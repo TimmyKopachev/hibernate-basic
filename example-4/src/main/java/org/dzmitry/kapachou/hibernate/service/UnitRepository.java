@@ -1,6 +1,6 @@
-package hibernate.service;
+package org.dzmitry.kapachou.hibernate.service;
 
-import hibernate.model.Unit;
+import org.dzmitry.kapachou.hibernate.model.Unit;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

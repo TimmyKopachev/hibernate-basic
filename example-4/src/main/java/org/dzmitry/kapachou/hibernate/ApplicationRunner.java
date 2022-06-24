@@ -1,7 +1,7 @@
-package hibernate;
+package org.dzmitry.kapachou.hibernate;
 
 
-import hibernate.service.UnitRepository;
+import org.dzmitry.kapachou.hibernate.service.UnitRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.Banner;
