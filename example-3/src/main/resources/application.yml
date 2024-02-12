@@ -13,7 +13,7 @@ spring:
     change-log: ${LIQUIBASE_CHANGE_LOG:classpath:db-changelog/changelog-dev.xml}
 
   h2:
-    console:
+    consoled:
       enable: true
       path: /h2
       settings:
