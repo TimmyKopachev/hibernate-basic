@@ -24,6 +24,7 @@
         <module>example-3</module>
         <module>example-4</module>
         <module>example-5</module>
+        <module>example-6</module>
     </modules>
 
     <properties>
@@ -59,6 +60,12 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.dzmitry.kapachou.hibernate</groupId>
+            <artifactId>hb-common</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
