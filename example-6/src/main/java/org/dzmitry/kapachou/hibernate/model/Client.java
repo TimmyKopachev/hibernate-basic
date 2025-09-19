@@ -10,20 +10,19 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "client")
-
-@ToString(exclude = "owner")
 public class Client extends IdEntity {
 
     private String name;
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     private List<Project> projectsOwned;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "project_brigade",
-            joinColumns = {@JoinColumn(name = "client_id")},
-            inverseJoinColumns = {@JoinColumn(name = "project_id")})
+            name = "client_assigned_projects",
+            joinColumns = @JoinColumn(name = "client_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
     private List<Project> projectsAssigned;
 
 }
