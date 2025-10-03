@@ -9,6 +9,25 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <properties>
+        <mapstruct.version>1.6.0</mapstruct.version>
+    </properties>
+
     <artifactId>example-6</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.dzmitry.kapachou.hibernate</groupId>
+            <artifactId>hb-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+    </dependencies>
+
 
 </project>

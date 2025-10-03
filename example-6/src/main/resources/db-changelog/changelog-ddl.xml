@@ -3,227 +3,154 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
-    <changeSet id="set-unique-name-1" author="dzmitry.kapachou">
+    <changeSet id="initial-ddl-for-local-cluster" author="dzmitry.kapachou">
+        <createTable tableName="commentable">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="dtype" type="VARCHAR(31)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
 
-<!--        <createTable tableName="project">-->
-<!--            <column name="id" type="BIGINT" autoIncrement="true">-->
-<!--                <constraints nullable="false"/>-->
-<!--            </column>-->
-<!--            <column name="name" type="VARCHAR(255)"/>-->
-<!--        </createTable>-->
-
-<!--        <createTable tableName="employee">-->
-<!--            <column name="id" type="BIGINT" autoIncrement="true">-->
-<!--                <constraints nullable="false"/>-->
-<!--            </column>-->
-<!--            <column name="name" type="VARCHAR(255)"/>-->
-<!--            <column name="email" type="VARCHAR(255)"/>-->
-<!--        </createTable>-->
-
-<!--        <createTable tableName="employee_project">-->
-<!--            <column name="id" type="BIGINT" autoIncrement="true">-->
-<!--                <constraints nullable="false"/>-->
-<!--            </column>-->
-<!--            <column name="employee_id" type="BIGINT"/>-->
-<!--            <column name="project_id" type="BIGINT"/>-->
-<!--        </createTable>-->
-
-                <createTable tableName="client">
-                    <column name="id" type="BIGINT" autoIncrement="true">
-                        <constraints primaryKey="true" primaryKeyName="pk_client" nullable="false"/>
-                    </column>
-                    <column name="name" type="VARCHAR(255)">
-                        <constraints nullable="false"/>
-                    </column>
-                </createTable>
-
-                <createIndex tableName="client" indexName="idx_client_name">
-                    <column name="name"/>
-                </createIndex>
-
-                <createTable tableName="project">
-                    <column name="id" type="BIGINT" autoIncrement="true">
-                        <constraints primaryKey="true" primaryKeyName="pk_project" nullable="false"/>
-                    </column>
-                    <column name="title" type="VARCHAR(255)">
-                        <constraints nullable="false"/>
-                    </column>
-                    <column name="description" type="CLOB"/>
-                    <column name="owner_id" type="BIGINT">
-                        <constraints nullable="false"/>
-                    </column>
-                </createTable>
-
-                <createIndex tableName="project" indexName="idx_project_owner_id">
-                    <column name="owner_id"/>
-                </createIndex>
-                <createIndex tableName="project" indexName="idx_project_title">
-                    <column name="title"/>
-                </createIndex>
-
-                <addForeignKeyConstraint
-                        baseTableName="project" baseColumnNames="owner_id"
-                        referencedTableName="client" referencedColumnNames="id"
-                        constraintName="fk_project_owner_client"
-                        onDelete="RESTRICT"/>
-                <createTable tableName="stage">
-                    <column name="id" type="BIGINT" autoIncrement="true">
-                        <constraints primaryKey="true" primaryKeyName="pk_stage" nullable="false"/>
-                    </column>
-                    <column name="title" type="VARCHAR(255)">
-                        <constraints nullable="false"/>
-                    </column>
-                    <column name="description" type="CLOB"/>
-                    <column name="project_id" type="BIGINT">
-                        <constraints nullable="false"/>
-                    </column>
-                </createTable>
-
-                <createIndex tableName="stage" indexName="idx_stage_project_id">
-                    <column name="project_id"/>
-                </createIndex>
-
-                <addForeignKeyConstraint
-                        baseTableName="stage" baseColumnNames="project_id"
-                        referencedTableName="project" referencedColumnNames="id"
-                        constraintName="fk_stage_project"
-                        onDelete="CASCADE"/>
-
-                <createTable tableName="brigade">
-                    <column name="id" type="BIGINT" autoIncrement="true">
-                        <constraints primaryKey="true" primaryKeyName="pk_brigade" nullable="false"/>
-                    </column>
-                    <column name="name" type="VARCHAR(255)">
-                        <constraints nullable="false"/>
-                    </column>
-                </createTable>
-
-                <createIndex tableName="brigade" indexName="idx_brigade_name">
-                    <column name="name"/>
-                </createIndex>
-
-                <createTable tableName="task">
-                    <column name="id" type="BIGINT" autoIncrement="true">
-                        <constraints primaryKey="true" primaryKeyName="pk_task" nullable="false"/>
-                    </column>
-                    <column name="description" type="CLOB"/>
-                    <column name="deadline" type="TIMESTAMP">
-                        <constraints nullable="false"/>
-                    </column>
-                    <column name="status" type="VARCHAR(64)">
-                        <constraints nullable="false"/>
-                    </column>
-                    <column name="brigade_id" type="BIGINT">
-                        <constraints nullable="false"/>
-                    </column>
-                </createTable>
-
-                <createIndex tableName="task" indexName="idx_task_brigade_id">
-                    <column name="brigade_id"/>
-                </createIndex>
-                <createIndex tableName="task" indexName="idx_task_deadline">
-                    <column name="deadline"/>
-                </createIndex>
-                <createIndex tableName="task" indexName="idx_task_status">
-                    <column name="status"/>
-                </createIndex>
-
-                <addForeignKeyConstraint
-                        baseTableName="task" baseColumnNames="brigade_id"
-                        referencedTableName="brigade" referencedColumnNames="id"
-                        constraintName="fk_task_brigade"
-                        onDelete="CASCADE"/>
-                <createTable tableName="client_assigned_projects">
-                    <column name="client_id" type="BIGINT">
-                        <constraints nullable="false"/>
-                    </column>
-                    <column name="project_id" type="BIGINT">
-                        <constraints nullable="false"/>
-                    </column>
-                </createTable>
-
-                <addPrimaryKey tableName="client_assigned_projects"
-                               columnNames="client_id, project_id"
-                               constraintName="pk_client_assigned_projects"/>
-
-                <createIndex tableName="client_assigned_projects" indexName="idx_cap_client_id">
-                    <column name="client_id"/>
-                </createIndex>
-                <createIndex tableName="client_assigned_projects" indexName="idx_cap_project_id">
-                    <column name="project_id"/>
-                </createIndex>
-
-                <addForeignKeyConstraint
-                        baseTableName="client_assigned_projects" baseColumnNames="client_id"
-                        referencedTableName="client" referencedColumnNames="id"
-                        constraintName="fk_cap_client"
-                        onDelete="CASCADE"/>
-                <addForeignKeyConstraint
-                        baseTableName="client_assigned_projects" baseColumnNames="project_id"
-                        referencedTableName="project" referencedColumnNames="id"
-                        constraintName="fk_cap_project"
-                        onDelete="CASCADE"/>
-                <createTable tableName="brigade_employee">
-                    <column name="brigade_id" type="BIGINT">
-                        <constraints nullable="false"/>
-                    </column>
-                    <column name="client_id" type="BIGINT">
-                        <constraints nullable="false"/>
-                    </column>
-                </createTable>
-
-                <addPrimaryKey tableName="brigade_employee"
-                               columnNames="brigade_id, client_id"
-                               constraintName="pk_brigade_employee"/>
-
-                <createIndex tableName="brigade_employee" indexName="idx_be_brigade_id">
-                    <column name="brigade_id"/>
-                </createIndex>
-                <createIndex tableName="brigade_employee" indexName="idx_be_client_id">
-                    <column name="client_id"/>
-                </createIndex>
-
-                <addForeignKeyConstraint
-                        baseTableName="brigade_employee" baseColumnNames="brigade_id"
-                        referencedTableName="brigade" referencedColumnNames="id"
-                        constraintName="fk_be_brigade"
-                        onDelete="CASCADE"/>
-                <addForeignKeyConstraint
-                        baseTableName="brigade_employee" baseColumnNames="client_id"
-                        referencedTableName="client" referencedColumnNames="id"
-                        constraintName="fk_be_client"
-                        onDelete="CASCADE"/>
-                <createTable tableName="stage_brigade">
-                    <column name="stage_id" type="BIGINT">
-                        <constraints nullable="false"/>
-                    </column>
-                    <column name="brigade_id" type="BIGINT">
-                        <constraints nullable="false"/>
-                    </column>
-                </createTable>
-
-                <addPrimaryKey tableName="stage_brigade"
-                               columnNames="stage_id, brigade_id"
-                               constraintName="pk_stage_brigade"/>
-
-                <createIndex tableName="stage_brigade" indexName="idx_sb_stage_id">
-                    <column name="stage_id"/>
-                </createIndex>
-                <createIndex tableName="stage_brigade" indexName="idx_sb_brigade_id">
-                    <column name="brigade_id"/>
-                </createIndex>
-
-                <addForeignKeyConstraint
-                        baseTableName="stage_brigade" baseColumnNames="stage_id"
-                        referencedTableName="stage" referencedColumnNames="id"
-                        constraintName="fk_sb_stage"
-                        onDelete="CASCADE"/>
-                <addForeignKeyConstraint
-                        baseTableName="stage_brigade" baseColumnNames="brigade_id"
-                        referencedTableName="brigade" referencedColumnNames="id"
-                        constraintName="fk_sb_brigade"
-                        onDelete="CASCADE"/>
-
+        <createTable tableName="comment">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="comment" type="VARCHAR(1000)"/>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="author_id" type="BIGINT"/>
+            <column name="owner_id" type="BIGINT"/>
+        </createTable>
+        <!--  Concrete child tables share the same PK and reference parent  -->
+        <createTable tableName="task">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(1024)"/>
+            <column name="soft_deadline" type="TIMESTAMP"/>
+            <column name="hard_deadline" type="TIMESTAMP"/>
+            <column name="brigade_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="feedback">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="rate" type="DOUBLE"/>
+            <column name="profile_id" type="BIGINT">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+        <createTable tableName="brigade">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+        <createTable tableName="client">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+        <createTable tableName="project">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(2048)"/>
+            <column name="owner_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="stage">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(2048)"/>
+            <column name="project_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="skill">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="level" type="INT"/>
+        </createTable>
+        <!--  Join tables  -->
+        <createTable tableName="stage_brigade">
+            <column name="stage_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="brigade_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="stage_brigade" columnNames="stage_id,brigade_id" constraintName="pk_stage_brigade"/>
+        <createTable tableName="brigade_employee">
+            <column name="brigade_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="brigade_employee" columnNames="brigade_id,client_id"
+                       constraintName="pk_brigade_employee"/>
+        <createTable tableName="client_assigned_projects">
+            <column name="client_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="project_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="client_assigned_projects" columnNames="client_id,project_id"
+                       constraintName="pk_client_assigned_projects"/>
+        <!--  FKs for inheritance (child id -> parent id)  -->
+        <addForeignKeyConstraint baseTableName="task" baseColumnNames="id" referencedTableName="commentable"
+                                 referencedColumnNames="id" constraintName="fk_task_commentable"/>
+        <addForeignKeyConstraint baseTableName="feedback" baseColumnNames="id" referencedTableName="commentable"
+                                 referencedColumnNames="id" constraintName="fk_feedback_commentable"/>
+        <!--  FKs where referenced entities are present in the provided set  -->
+        <addForeignKeyConstraint baseTableName="task" baseColumnNames="brigade_id" referencedTableName="brigade"
+                                 referencedColumnNames="id" constraintName="fk_task_brigade"/>
+        <addForeignKeyConstraint baseTableName="project" baseColumnNames="owner_id" referencedTableName="client"
+                                 referencedColumnNames="id" constraintName="fk_project_owner"/>
+        <addForeignKeyConstraint baseTableName="stage" baseColumnNames="project_id" referencedTableName="project"
+                                 referencedColumnNames="id" constraintName="fk_stage_project"/>
+        <addForeignKeyConstraint baseTableName="stage_brigade" baseColumnNames="stage_id" referencedTableName="stage"
+                                 referencedColumnNames="id" constraintName="fk_stage_brigade_stage"/>
+        <addForeignKeyConstraint baseTableName="stage_brigade" baseColumnNames="brigade_id"
+                                 referencedTableName="brigade" referencedColumnNames="id"
+                                 constraintName="fk_stage_brigade_brigade"/>
+        <addForeignKeyConstraint baseTableName="brigade_employee" baseColumnNames="brigade_id"
+                                 referencedTableName="brigade" referencedColumnNames="id"
+                                 constraintName="fk_brigade_employee_brigade"/>
+        <addForeignKeyConstraint baseTableName="brigade_employee" baseColumnNames="client_id"
+                                 referencedTableName="client" referencedColumnNames="id"
+                                 constraintName="fk_brigade_employee_client"/>
+        <addForeignKeyConstraint baseTableName="client_assigned_projects" baseColumnNames="client_id"
+                                 referencedTableName="client" referencedColumnNames="id"
+                                 constraintName="fk_client_assigned_projects_client"/>
+        <addForeignKeyConstraint baseTableName="client_assigned_projects" baseColumnNames="project_id"
+                                 referencedTableName="project" referencedColumnNames="id"
+                                 constraintName="fk_client_assigned_projects_project"/>
+        <!--  Useful indexes  -->
+        <createIndex tableName="project" indexName="idx_project_owner">
+            <column name="owner_id"/>
+        </createIndex>
+        <createIndex tableName="stage" indexName="idx_stage_project">
+            <column name="project_id"/>
+        </createIndex>
+        <createIndex tableName="task" indexName="idx_task_brigade">
+            <column name="brigade_id"/>
+        </createIndex>
     </changeSet>
 
 </databaseChangeLog>

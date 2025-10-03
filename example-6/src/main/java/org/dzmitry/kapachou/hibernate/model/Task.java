@@ -1,14 +1,17 @@
 package org.dzmitry.kapachou.hibernate.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.Instant;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "task")
-public class Task extends IdEntity {
+@DiscriminatorValue("task")
+public class Task extends Commentable {
 
     private String description;
 
@@ -18,4 +21,5 @@ public class Task extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "brigade_id", nullable = false)
     private Brigade brigade;
+
 }

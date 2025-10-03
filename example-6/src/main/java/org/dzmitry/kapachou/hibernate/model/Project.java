@@ -1,13 +1,16 @@
 package org.dzmitry.kapachou.hibernate.model;
 
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "project")
 public class Project extends IdEntity {
@@ -21,7 +24,7 @@ public class Project extends IdEntity {
 
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Stage> stages;
+    private List<Stage> stages = new ArrayList<>();
 
 }
 

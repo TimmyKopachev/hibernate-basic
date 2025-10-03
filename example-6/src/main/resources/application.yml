@@ -1,7 +1,7 @@
 server:
   port: 8084
   servlet:
-    context-path: /api/hibernate/example-5
+    context-path: /api/hibernate/example-6
 
 spring:
   #Application
