@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="init-data-001-client-and-projects" author="timmy.kapachou" dbms="h2">
+
+        <insert tableName="client">
+            <column name="id" value="1"/>
+            <column name="name" value="Dima"/>
+            <column name="radius" valueNumeric="15"/>  <!-- km -->
+            <column name="location" value="Minsk"/>
+            <column name="position" valueComputed="ST_GeomFromText('POINT(27.523850 53.914627)', 4326)"/>
+        </insert>
+
+        <insert tableName="project">
+            <column name="id" value="100"/>
+            <column name="address" value="Minsk"/>
+            <column name="title" value="elite house"/>
+            <column name="description" value="zelenya gavan"/>
+            <!-- ~14.6 km from client.position-->
+            <column name="position"
+                    valueComputed="ST_GeomFromText('POINT(27.743434 53.891259)', 4326)"/>
+        </insert>
+
+
+        <insert tableName="project">
+            <column name="id" value="200"/>
+            <column name="address" value="Baranovichi"/>
+            <column name="title" value="elite house"/>
+            <column name="description" value="Medovaya street"/>
+            <!-- ~129 km from client.position-->
+            <column name="position"
+                    valueComputed="ST_GeomFromText('POINT(26.037794 53.159627)', 4326)"/>
+        </insert>
+
+        <insert tableName="project">
+            <column name="id" value="300"/>
+            <column name="address" value="warsaw"/>
+            <column name="title" value="elite house"/>
+            <column name="description" value="ordona 12"/>
+            <!-- ~332 km from client.position-->
+            <column name="position"
+                    valueComputed="ST_GeomFromText('POINT(23.615919 52.074646)',  4326)"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
