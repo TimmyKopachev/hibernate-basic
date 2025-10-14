@@ -7,7 +7,7 @@
 
         <createTable tableName="training">
             <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints nullable="false"/>
+                <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)"/>
             <column name="description" type="VARCHAR(5055)"/>
@@ -17,7 +17,7 @@
 
         <createTable tableName="session">
             <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints nullable="false"/>
+                <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="topic" type="VARCHAR(255)"/>
             <column name="training_id" type="BIGINT"/>
